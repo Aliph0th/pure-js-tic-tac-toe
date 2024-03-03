@@ -1,0 +1,145 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+   font-family: sans-serif;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   height: 100vh;
+}
+
+.hidden {
+   display: none !important;
+}
+
+.title {
+   text-align: center;
+   font-size: 1.5rem;
+   font-weight: bold;
+   margin-bottom: 0.75rem;
+}
+
+.form {
+   height: 70%;
+   width: 40%;
+}
+
+.form_control {
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 1.5rem;
+}
+
+.input {
+   background-color: #f9fafb;
+   border-radius: 5px;
+   border: 1px solid #c0c4c9;
+   border-bottom: 2px solid #c0c4c9;
+   color: #20242f;
+   font-size: 1rem;
+   width: 100%;
+   padding: 1rem;
+   height: 2.5rem;
+   transition: border 0.2s ease-out;
+}
+.input:focus {
+   outline: none;
+   border-color: #ea9f13;
+}
+
+label {
+   display: block;
+   font-weight: bold;
+   color: #374151;
+   font-size: 0.9rem;
+   margin-bottom: 0.2rem;
+}
+
+.additional_player {
+   display: flex;
+   gap: 10px;
+   margin-bottom: 0.75rem;
+}
+
+.btn {
+   padding: 1em 1.5em;
+   outline: none;
+   color: #fff;
+   font-weight: bold;
+   font-size: 1rem;
+   border-radius: 5px;
+   border: none;
+   transition: background 0.2s;
+}
+.btn_green {
+   background-color: #27b922;
+}
+.btn_green:not([disabled]):hover {
+   background-color: #84e281;
+}
+.btn_red {
+   padding: 0.5em 1em;
+   background-color: #d21a1a;
+}
+.btn_red:not([disabled]):hover {
+   background-color: #e87272;
+}
+.btn_orange {
+   background-color: #ea9f13;
+}
+.btn_orange:not([disabled]):hover {
+   background-color: #ecc377;
+}
+.btn[disabled] {
+   background-color: #ccc;
+}
+
+.muted {
+   text-align: center;
+   font-size: 1.125rem;
+   color: #b0b0b0;
+   margin: 0.5rem 0;
+}
+
+#field {
+   display: grid;
+   grid-gap: 5px;
+   border: 1px solid #b5b5b5;
+   padding: 0.2rem;
+}
+
+#info {
+   display: block;
+   font-size: 1rem;
+   margin-top: 1rem;
+   text-align: center;
+}
+
+.cell {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 1.5rem;
+   width: 4rem;
+   height: 4rem;
+   user-select: none;
+   background-color: #dedede;
+   transition: background .2s;
+}
+#field:not(.finished) .cell:not(.occupied):hover {
+   background-color: #bebebe;
+}
+.cell.occupied {
+   cursor: not-allowed;
+}
+.cell.occupied.active {
+   border: 2px dashed #a1a1a1;
+}
+.cell.active {
+   border: 2px dashed #404040;
+}

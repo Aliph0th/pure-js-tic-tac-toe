@@ -14,12 +14,12 @@
    <form class="form" id="pre_settings">
       <div class="form_control">
          <label for="size">Размер поля</label>
-         <input type="number" class="input" id="size" placeholder="3" value="3" min="3" required>
+         <input type="number" class="input" id="size" placeholder="3" value="3" min="3" max="8" required>
       </div>
 
       <div class="form_control">
          <label for="rules">Правила выигрыша</label>
-         <input type="number" class="input" id="rules" placeholder="3" value="3" min="2" required>
+         <input type="number" class="input" id="rule" placeholder="3" value="3" min="2" max="3" required>
       </div>
 
       <div class="form_control">
@@ -32,6 +32,7 @@
    <div id="container" class="hidden">
       <div id="field"></div>
       <span id="info"></span>
+      <button id="restart" class="btn btn_orange hidden">Заново</button>
    </div>
 
    <script src="js/settings/settings.controller.js"></script>

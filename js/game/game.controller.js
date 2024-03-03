@@ -27,11 +27,14 @@ class GameController {
 
    startGame() {
       this.#model.showGameScreen();
-      this.#model.createField(
-         this.#field,
-         this.#size,
-         this.#makeMove.bind(this)
-      );
+      this.#model.createField(this.#field, this.#size, this.#makeMove.bind(this));
+      this.#model.hideRestartBtn();
+   }
+
+   unmount() {
+      this.#model.destroyAllCells();
+      this.#model.hideGameScreen();
+      this.#model.enableField();
    }
 
    #handleKeyDown(e) {
@@ -94,9 +97,7 @@ class GameController {
          }
          this.#currentPlayer = (this.#currentPlayer + 1) % this.#players.length;
          this.#model.setInfoText(
-            `Ход №${++this.#moveIndex} Сейчас ходит ${
-               this.#players[this.#currentPlayer]
-            }`
+            `Ход №${++this.#moveIndex} Сейчас ходит ${this.#players[this.#currentPlayer]}`
          );
       }
    }
@@ -106,6 +107,7 @@ class GameController {
       this.#model.disableField();
       this.#isGameFinished = true;
       this.#model.deactivateCurrentCell();
+      this.#model.showRestartBtn();
    }
 
    #checkDraw() {
@@ -151,8 +153,6 @@ class GameController {
    }
 
    #checkArrayForWinner(array) {
-      return new RegExp(
-         `([1-${this.#players.length}])\\1{${this.#rule - 1}}`
-      ).test(array.filter(Boolean).join(''));
+      return array.join('').includes(`${this.#currentPlayer + 1}`.repeat(this.#rule));
    }
 }

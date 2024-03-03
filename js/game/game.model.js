@@ -3,14 +3,27 @@
 class GameModel {
    #fieldElement = document.getElementById('field');
    #containerElement = document.getElementById('container');
-   #formElement = document.getElementById('pre_settings');
    #infoElement = document.getElementById('info');
+   #restartBtn = document.getElementById('restart');
    #cells = [];
    #activeCell = null;
 
    showGameScreen() {
-      this.#formElement.classList.add('hidden');
       this.#containerElement.classList.remove('hidden');
+   }
+   hideGameScreen() {
+      this.#containerElement.classList.add('hidden');
+   }
+
+   destroyAllCells() {
+      this.#fieldElement.innerHTML = '';
+   }
+
+   showRestartBtn() {
+      this.#restartBtn.classList.remove('hidden');
+   }
+   hideRestartBtn() {
+      this.#restartBtn.classList.add('hidden');
    }
 
    setInfoText(text) {
@@ -19,6 +32,9 @@ class GameModel {
 
    disableField() {
       this.#fieldElement.classList.add('finished');
+   }
+   enableField() {
+      this.#fieldElement.classList.remove('finished');
    }
 
    activateCell([x, y]) {

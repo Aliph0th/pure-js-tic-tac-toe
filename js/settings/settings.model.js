@@ -2,7 +2,13 @@
 
 class SettingsModel {
    #noPlayersElement = document.getElementById('no_additional_players');
+   #settingsScreen = document.getElementById('pre_settings');
    #addPlayerBtn = document.getElementById('add_player');
+
+   constructor() {
+      this.sizeInput = document.getElementById('size');
+      this.ruleInput = document.getElementById('rule');
+   }
 
    renderNewPlayer(id, char, removeCallback) {
       const span = this.#createElement({
@@ -23,13 +29,14 @@ class SettingsModel {
          type: 'div',
          classes: ['additional_player'],
          children: [span, button],
-         listeners: { 'data-id': id }
+         attributes: { 'data-id': id }
       });
 
-      this.#addPlayerBtn.parentElement.insertBefore(
-         newPlayer,
-         this.#addPlayerBtn
-      );
+      this.#addPlayerBtn.parentElement.insertBefore(newPlayer, this.#addPlayerBtn);
+   }
+
+   showSettingsScreen() {
+      this.#settingsScreen.classList.remove('hidden');
    }
 
    #createElement({

@@ -113,11 +113,16 @@ label {
    padding: 0.2rem;
 }
 
+#container {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
 #info {
-   display: block;
    font-size: 1rem;
-   margin-top: 1rem;
-   text-align: center;
+   margin: 1rem 0;
 }
 
 .cell {

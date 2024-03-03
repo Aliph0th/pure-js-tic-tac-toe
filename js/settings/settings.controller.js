@@ -9,12 +9,33 @@ class SettingsController {
 
    constructor() {
       this.usedPlayerChars = [];
+      this.size = 3;
+      this.rule = 3;
+
+      this.#model.sizeInput.addEventListener('input', this.#adjustValues.bind(this));
+      this.#model.ruleInput.addEventListener('input', e => {
+         this.rule = +e.target.value;
+      });
    }
 
    listenAddPlayers() {
       document
          .getElementById('add_player')
          .addEventListener('click', this.#addPlayer.bind(this));
+   }
+
+   #adjustValues(e) {
+      const value = +e.target.value;
+      this.size = value;
+      this.#model.ruleInput.setAttribute('max', value);
+      if (this.rule > value && value > 0) {
+         this.rule = value;
+         this.#model.ruleInput.value = value;
+      }
+   }
+
+   restart() {
+      this.#model.showSettingsScreen();
    }
 
    #addPlayer() {

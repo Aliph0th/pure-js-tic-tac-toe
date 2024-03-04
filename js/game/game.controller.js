@@ -115,12 +115,10 @@ class GameController {
    }
 
    #checkWin() {
-      // rows
       if (this.#field.some(row => this.#checkArrayForWinner(row))) {
          return true;
       }
 
-      // columns
       if (
          this.#field.some((_, i) => {
             const column = this.#field.map(row => row[i]);
@@ -130,7 +128,6 @@ class GameController {
          return true;
       }
 
-      // diagonals
       let isDiagonal = false;
       [...Array(this.#size - this.#rule + 1).keys()].forEach(i => {
          [...Array(this.#size - this.#rule + 1).keys()].forEach(j => {

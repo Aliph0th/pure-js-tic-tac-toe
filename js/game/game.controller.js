@@ -3,7 +3,7 @@
 class GameController {
    #model = new GameModel();
    #size;
-   #rule;
+   #winRule;
    #players;
    #currentPlayer = 0;
    #moveIndex = 1;
@@ -14,7 +14,7 @@ class GameController {
 
    constructor(size, rule, players) {
       this.#size = size;
-      this.#rule = rule;
+      this.#winRule = rule;
       this.#players = players;
       this.#field = Array(size)
          .fill()
@@ -129,14 +129,13 @@ class GameController {
       }
 
       let isDiagonal = false;
-      [...Array(this.#size - this.#rule + 1).keys()].forEach(i => {
-         [...Array(this.#size - this.#rule + 1).keys()].forEach(j => {
-            const diagonal1 = this.#field
-               .slice(i, i + this.#rule)
-               .map((row, index) => row[index + j]);
-            const diagonal2 = this.#field
-               .slice(i, i + this.#rule)
-               .map((row, index) => row[this.#rule - 1 - index + j]);
+      [...Array(this.#size - this.#winRule + 1).keys()].forEach(i => {
+         [...Array(this.#size - this.#winRule + 1).keys()].forEach(j => {
+            const segment = this.#field.slice(i, i + this.#winRule);
+            const diagonal1 = segment.map((row, index) => row[index + j]);
+            const diagonal2 = segment.map(
+               (row, index) => row[this.#winRule - 1 - index + j]
+            );
             if (
                this.#checkArrayForWinner(diagonal1) ||
                this.#checkArrayForWinner(diagonal2)
@@ -150,6 +149,6 @@ class GameController {
    }
 
    #checkArrayForWinner(array) {
-      return array.join('').includes(`${this.#currentPlayer + 1}`.repeat(this.#rule));
+      return array.join('').includes(`${this.#currentPlayer + 1}`.repeat(this.#winRule));
    }
 }

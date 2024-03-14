@@ -1,6 +1,6 @@
 'use strict';
 
-class SettingsModel {
+class SettingsView {
    #noPlayersElement = document.getElementById('no_additional_players');
    #settingsScreen = document.getElementById('pre_settings');
    #addPlayerBtn = document.getElementById('add_player');

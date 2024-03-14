@@ -1,7 +1,7 @@
 'use strict';
 
 class GameController {
-   #model = new GameModel();
+   #view = new GameView();
    #size;
    #winRule;
    #players;
@@ -20,21 +20,21 @@ class GameController {
          .fill()
          .map(() => Array(size).fill(EMPTY_CELL));
 
-      this.#model.setInfoText('Ход №1 Сейчас ходит ❌');
+      this.#view.setInfoText('Ход №1 Сейчас ходит ❌');
 
       document.addEventListener('keydown', this.#handleKeyDown.bind(this));
    }
 
    startGame() {
-      this.#model.showGameScreen();
-      this.#model.createField(this.#field, this.#size, this.#makeMove.bind(this));
-      this.#model.hideRestartBtn();
+      this.#view.showGameScreen();
+      this.#view.createField(this.#field, this.#size, this.#makeMove.bind(this));
+      this.#view.hideRestartBtn();
    }
 
    unmount() {
-      this.#model.destroyAllCells();
-      this.#model.hideGameScreen();
-      this.#model.enableField();
+      this.#view.destroyAllCells();
+      this.#view.hideGameScreen();
+      this.#view.enableField();
    }
 
    #handleKeyDown(e) {
@@ -70,7 +70,7 @@ class GameController {
             (this.#activeCell[1] + this.#size + dy) % this.#size
          ];
       }
-      this.#model.activateCell(this.#activeCell);
+      this.#view.activateCell(this.#activeCell);
    }
 
    #makeMove(x, y) {
@@ -78,12 +78,12 @@ class GameController {
          return;
       }
       this.#activeCell = [x, y];
-      this.#model.activateCell(this.#activeCell);
+      this.#view.activateCell(this.#activeCell);
 
       if (this.#field[x][y] === EMPTY_CELL) {
          this.#field[x][y] = this.#currentPlayer + 1;
          this.#occupiedCells++;
-         this.#model.putPlayerSymbol(x, y, this.#players[this.#currentPlayer]);
+         this.#view.putPlayerSymbol(x, y, this.#players[this.#currentPlayer]);
          if (this.#checkWin()) {
             this.#handleEndGame(
                `На ходу №${this.#moveIndex} победил ${
@@ -96,18 +96,18 @@ class GameController {
             return;
          }
          this.#currentPlayer = (this.#currentPlayer + 1) % this.#players.length;
-         this.#model.setInfoText(
+         this.#view.setInfoText(
             `Ход №${++this.#moveIndex} Сейчас ходит ${this.#players[this.#currentPlayer]}`
          );
       }
    }
 
    #handleEndGame(message) {
-      this.#model.setInfoText(message);
-      this.#model.disableField();
+      this.#view.setInfoText(message);
+      this.#view.disableField();
       this.#isGameFinished = true;
-      this.#model.deactivateCurrentCell();
-      this.#model.showRestartBtn();
+      this.#view.deactivateCurrentCell();
+      this.#view.showRestartBtn();
    }
 
    #checkDraw() {

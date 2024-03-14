@@ -4,7 +4,7 @@ class SettingsController {
    #playerChars = ['🤣', '💘', '🌚', '🐧', '👨‍✈️', '👦', '🌞', '👊', '🎸'].sort(
       () => 0.5 - Math.random()
    );
-   #model = new SettingsModel();
+   #view = new SettingsView();
    #newPlayerCount = 0;
 
    constructor() {
@@ -12,8 +12,8 @@ class SettingsController {
       this.size = 3;
       this.rule = 3;
 
-      this.#model.sizeInput.addEventListener('input', this.#adjustValues.bind(this));
-      this.#model.ruleInput.addEventListener('input', e => {
+      this.#view.sizeInput.addEventListener('input', this.#adjustValues.bind(this));
+      this.#view.ruleInput.addEventListener('input', e => {
          this.rule = +e.target.value;
       });
    }
@@ -27,15 +27,15 @@ class SettingsController {
    #adjustValues(e) {
       const value = +e.target.value;
       this.size = value;
-      this.#model.ruleInput.setAttribute('max', value);
+      this.#view.ruleInput.setAttribute('max', value);
       if (this.rule > value && value > 0) {
          this.rule = value;
-         this.#model.ruleInput.value = value;
+         this.#view.ruleInput.value = value;
       }
    }
 
    restart() {
-      this.#model.showSettingsScreen();
+      this.#view.showSettingsScreen();
    }
 
    #addPlayer() {
@@ -47,7 +47,7 @@ class SettingsController {
       const playerChar = this.#playerChars.splice(randomID, 1)[0];
       this.usedPlayerChars.push(playerChar);
 
-      this.#model.renderNewPlayer(
+      this.#view.renderNewPlayer(
          this.#newPlayerCount,
          playerChar,
          this.#removePlayer.bind(this)
@@ -55,9 +55,9 @@ class SettingsController {
 
       this.#newPlayerCount++;
       if (this.#newPlayerCount === MAX_NEW_PLAYERS) {
-         this.#model.disableAddPlayerBtn();
+         this.#view.disableAddPlayerBtn();
       } else if (this.#newPlayerCount > 0) {
-         this.#model.hideNoPlayersText();
+         this.#view.hideNoPlayersText();
       }
    }
 
@@ -66,9 +66,9 @@ class SettingsController {
       this.#playerChars.push(this.usedPlayerChars.splice(id, 1)[0]);
       player.remove();
       if (--this.#newPlayerCount <= MAX_NEW_PLAYERS) {
-         this.#model.enableAddPlayerBtn();
+         this.#view.enableAddPlayerBtn();
          if (!this.#newPlayerCount) {
-            this.#model.showNoPlayersText();
+            this.#view.showNoPlayersText();
          }
       }
    }
